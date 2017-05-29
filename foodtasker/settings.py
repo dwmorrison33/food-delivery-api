@@ -20,7 +20,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '_8964_g+=vx5m(ti&l2=a_m^n!^r2p+x0migb!9#(0)d%*unat'
+#SECRET_KEY = '_8964_g+=vx5m(ti&l2=a_m^n!^r2p+x0migb!9#(0)d%*unat'
+with open('/Users/davidmorrison/Desktop/foodtasker_keys/secret_key.txt','r') as f:
+    SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'foodtaskerapp',
+    'oauth2_provider',
+    'social_django',
+    'rest_framework_social_oauth2',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +69,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -129,3 +136,24 @@ MEDIA_URL = '/media/'
 import dj_database_url
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+   'rest_framework_social_oauth2.backends.DjangoOAuth2',
+   'django.contrib.auth.backends.ModelBackend',
+)
+
+# Facebook configuration
+with open('/Users/davidmorrison/Desktop/foodtasker_keys/SOCIAL_AUTH_FACEBOOK_KEY.txt','r') as f:
+    SOCIAL_AUTH_FACEBOOK_KEY = f.read().strip()
+
+with open('/Users/davidmorrison/Desktop/foodtasker_keys/SOCIAL_AUTH_FACEBOOK_SECRET.txt','r') as f:
+    SOCIAL_AUTH_FACEBOOK_SECRET = f.read().strip()
+#SOCIAL_AUTH_FACEBOOK_KEY = '1688673574762814'
+#SOCIAL_AUTH_FACEBOOK_SECRET = 'd7a04d02c2931e83a33fb9639710c011'
+
+# Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from facebook. Email is not sent by default, to get it, you must request the email permission:
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, name, email'
+}
