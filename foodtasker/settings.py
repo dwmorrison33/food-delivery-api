@@ -20,7 +20,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = '_8964_g+=vx5m(ti&l2=a_m^n!^r2p+x0migb!9#(0)d%*unat'
 with open('/Users/davidmorrison/Desktop/foodtasker_keys/secret_key.txt','r') as f:
     SECRET_KEY = f.read().strip()
 
@@ -149,8 +148,7 @@ with open('/Users/davidmorrison/Desktop/foodtasker_keys/SOCIAL_AUTH_FACEBOOK_KEY
 
 with open('/Users/davidmorrison/Desktop/foodtasker_keys/SOCIAL_AUTH_FACEBOOK_SECRET.txt','r') as f:
     SOCIAL_AUTH_FACEBOOK_SECRET = f.read().strip()
-#SOCIAL_AUTH_FACEBOOK_KEY = '1688673574762814'
-#SOCIAL_AUTH_FACEBOOK_SECRET = 'd7a04d02c2931e83a33fb9639710c011'
+
 
 # Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from facebook. Email is not sent by default, to get it, you must request the email permission:
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
